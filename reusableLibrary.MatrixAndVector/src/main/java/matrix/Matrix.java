@@ -240,14 +240,42 @@ public class Matrix {
 //===============OPERATIONS===============
 	
 	// a matrix plus a matrix
-	public Matrix add(Matrix matrix2) {
-		return null;
+	public Matrix add(Matrix matrix2) throws WrongShapeException {
+		this.verifySameShape(matrix2);
+		
+		Matrix addition = new Matrix(m(), n());
+		BigDecimal current;
+		
+		// for each rows
+		for (int i = 0 ; i < m() ; i++) {
+			//for each columns
+			for (int j = 0 ; j < n() ; j++) {
+				current = this.getValueAt(i, j).add(matrix2.getValueAt(i, j));
+				addition.setValueAt(i, j, current);
+			}
+		}
+		
+		return addition;
 	}
 	
 	
 	// a matrix minus a matrix
-	public Matrix subtract(Matrix matrix2) {
-		return null;
+	public Matrix subtract(Matrix matrix2) throws WrongShapeException {
+		this.verifySameShape(matrix2);
+		
+		Matrix addition = new Matrix(m(), n());
+		BigDecimal current;
+		
+		// for each rows
+		for (int i = 0 ; i < m() ; i++) {
+			//for each columns
+			for (int j = 0 ; j < n() ; j++) {
+				current = this.getValueAt(i, j).subtract(matrix2.getValueAt(i, j));
+				addition.setValueAt(i, j, current);
+			}
+		}
+		
+		return addition;
 	}
 	
 	
