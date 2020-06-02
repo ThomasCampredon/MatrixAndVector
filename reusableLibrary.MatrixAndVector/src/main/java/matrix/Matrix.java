@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import Exception.*;
 
 public class Matrix {
-	private BigDecimal[][] matrix;
-	private int[] shape;
+	private BigDecimal[][] matrix; // a two dimensional table
+	private int[] shape; // i=0 is the rows' number ; i=1 is the columns' number
 	
 	
 //===============CONSTRUCTORS==================
@@ -64,7 +64,7 @@ public class Matrix {
 	}
 	
 	
-	// set the value of the matrix so that it does not need to be recalculated 
+	// save the matrix size so that it does not need to be recalculated 
 	private void initializeShape() {
 		this.shape = new int[2];
 		this.shape[0] = this.matrix.length;
@@ -77,7 +77,9 @@ public class Matrix {
 		int rows = matrix.length;
 		int columns = matrix[0].length;
 		
+		//for each rows
 		for (int i = 0 ; i < rows ; i++) {
+			// check if the number of columns is always the same, else throws an exception
 			if (matrix[i].length != columns) {
 				throw new MatrixMisconstructionException ("The matrix lack some elements");
 			}
@@ -89,7 +91,9 @@ public class Matrix {
 		int rows = matrix.length;
 		int columns = matrix[0].length;
 		
+		//for each rows
 		for (int i = 0 ; i < rows ; i++) {
+			// check if the number of columns is always the same, else throws an exception
 			if (matrix[i].length != columns) {
 				throw new MatrixMisconstructionException ("The matrix lack some elements");
 			}
@@ -101,7 +105,9 @@ public class Matrix {
 		int rows = matrix.length;
 		int columns = matrix[0].length;
 		
+		//for each rows
 		for (int i = 0 ; i < rows ; i++) {
+			// check if the number of columns is always the same, else throws an exception
 			if (matrix[i].length != columns) {
 				throw new MatrixMisconstructionException ("The matrix lack some elements");
 			}
@@ -116,6 +122,7 @@ public class Matrix {
 		return this.shape;
 	}
 	
+	// return a string which contains the shape
 	public String getShape() {
 		return "("+ this.shape[0] + ", " + this.shape[1] + ")";
 	}
