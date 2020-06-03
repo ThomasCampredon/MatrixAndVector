@@ -183,9 +183,25 @@ public class MatrixTest {
 	}
 	
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void test_pow_should_trows_IllegalArgumentException() throws WrongShapeException {
+		matrix1.pow(0);
+	}
 	
+	@Test(expected = WrongShapeException.class)
+	public void test_pow_should_trows_WrongShapeException() throws WrongShapeException {
+		matrix2.pow(2);
+	}
 	
-	
+	@Test
+	public void test_pow_() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][]{{-456, 475, -28},
+												{1012, -849, -855},
+												{-455, 498, -835}});
+		
+		assertTrue(result.equals(matrix1.pow(3)));
+		
+	}
 	
 	
 }

@@ -249,6 +249,11 @@ public class Matrix {
 		}
 	}
 	
+	// return true if the matrix is a square matrix
+	public boolean isSqareMatrix() {
+		return this.m()==this.n();
+	}
+	
 //=============COMPARISON=============
 	
 	
@@ -306,7 +311,6 @@ public class Matrix {
 				subtraction.setValueAt(i, j, current);
 			}
 		}
-		
 		return subtraction;
 	}
 	
@@ -393,9 +397,34 @@ public class Matrix {
 				transpose.setValueAt(j, i, this.getValueAt(i, j));
 			}
 		}
-		
 		return transpose;
 	}
+	
+	
+	// matrix powered
+	public Matrix pow(int power) throws WrongShapeException {
+		if (power < 1) {
+			throw new IllegalArgumentException("The power must be strictly superior to 0");
+		}
+		if (!this.isSqareMatrix()) {
+			throw new WrongShapeException("This matrix is not a sqare matrix, it can not be powered ");
+		}
+		if (power == 1) {
+			return this;
+		}else {
+			Matrix powered = this;
+			
+			for(int i = 0 ; i < power-1 ; i++) {
+				powered = powered.multiply(this);
+			}
+			return powered;
+		}
+	}
+	
+	
+	
+	
+	
 	
 	
 }
