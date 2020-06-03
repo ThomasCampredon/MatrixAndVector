@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,16 +35,13 @@ public class MatrixTest {
 	}
 	
 	
-	
-	
-	
+		
 	@Test
 	public void matrix23_should_return_23shape() {
 		int[] result = new int[] {2, 3};
 		
 		assertArrayEquals(result, matrix2.getShape());
 	}
-	
 	
 	@Test
 	public void matrix23_should_return_m2_and_n3() {	
@@ -54,6 +53,26 @@ public class MatrixTest {
 	public void misconstructed_matrix_should_trows_exception() throws MatrixMisconstructionException {
 		Matrix badMatrix = new Matrix(new int[][] {{1, 2},
 													{2, 4, 5}});
+	}
+	
+	@Test
+	public void test_getRow() {
+		BigDecimal[] result = new BigDecimal[3];
+		for (int i = 1 ; i < 4 ; i++) {
+			result[i-1] = new BigDecimal(i);
+		}
+		
+		assertArrayEquals(result, matrix2.getRow(0));
+	}
+	
+	@Test
+	public void test_getColumn() {
+		BigDecimal[] result = new BigDecimal[2];
+		for (int i = 1 ; i < 3 ; i++) {
+			result[i-1] = new BigDecimal(i);
+		}
+		
+		assertArrayEquals(result, matrix2.getColumn(0));
 	}
 	 
 	@Test
@@ -128,4 +147,58 @@ public class MatrixTest {
 		matrix1.subtract(matrix2);
 	}
 	
+	@Test
+	public void test_multiplication_with_matrix() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][]{{35, 19, 54},
+												{4, 37, -55},
+												{136, 32, 198}});
+		
+		assertTrue(result.equals(matrix1.multiply(matrix3)));
+		
+	}
+	
+	@Test
+	public void test_multiplication_with_scalar() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][]{{2, 4, 10},
+												{-2, 10, -14},
+												{-16, 14, 22}});
+		
+		assertTrue(result.equals(matrix1.multiply(2)));
+		
+	}
+	
+	@Test(expected = WrongShapeException.class)
+	public void test_multiplication_with_matrix_should_trows_exception() throws WrongShapeException {
+		matrix1.multiply(matrix2);
+	}
+	
+	@Test
+	public void test_transpose() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][] {{1,2},
+												{2, -5},
+												{3, 7}});
+		
+		assertTrue(result.equals(matrix2.T()));
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

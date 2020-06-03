@@ -104,6 +104,93 @@ public class Matrix {
 	}
 	
 	
+	
+//==============GETTERS AND SETTERS================
+	
+	public int[] getShape() {
+		return this.shape;
+	}
+	
+	// return a string which contains the shape
+	public String getStringShape() {
+		return "("+ this.shape[0] + ", " + this.shape[1] + ")";
+	}
+	
+	// return the number of rows
+	public int m() {
+		return this.shape[0];
+	}
+	
+	// return the number of columns
+	public int n() {
+		return this.shape[1];
+	}
+	
+	// return the at the row m and the column n
+	public BigDecimal getValueAt(int m, int n) {
+		return this.matrix[m][n];
+	}
+	
+	// return the m row
+	public BigDecimal[] getRow(int m) {
+		if ((m >= this.m()) || (m<0)) {
+			throw new IllegalArgumentException("The row number is not valid : the row number is not between 0 and " + this.m());
+		}
+		return this.matrix[m];
+	}
+	
+	// return the n column
+	public BigDecimal[] getColumn(int n) {
+		if ((n >= this.n()) || (n<0)) {
+			throw new IllegalArgumentException("The column number is not valid : the column number is not between 0 and " + this.n());
+		}
+		BigDecimal[] col = new BigDecimal[this.m()];
+		
+		// for each rows
+		for (int i = 0 ; i < this.m() ; i++) {
+			col[i] = this.getValueAt(i, n); // take the n value
+		}
+		return col;
+	}
+	
+	// modify the value at the row m and the column n
+	public void setValueAt(int m, int n, int value) {
+		this.matrix[m][n] = new BigDecimal(value);
+	}
+	
+	// modify the value at the row m and the column n
+	public void setValueAt(int m, int n, double value) {
+		this.matrix[m][n] = new BigDecimal(value);
+	}
+	
+	// modify the value at the row m and the column n
+	public void setValueAt(int m, int n, BigDecimal value) {
+		this.matrix[m][n] = value;
+	}
+	
+	// display of the matrix
+	public String toString() {
+		String info = "";
+		DecimalFormat df = new DecimalFormat("###.########");
+		
+		for (int i = 0 ; i < m() ; i++) {
+			info+="| ";
+			for (int j = 0 ; j < n() ; j++) {
+				BigDecimal value = getValueAt(i, j);
+				if (value.compareTo(BigDecimal.ZERO)>=0) {
+					info+=" ";
+				}
+				info+=df.format(value.doubleValue())+" ";
+			}
+			info+="|\n";
+		}
+		return info;
+	}
+	
+	
+	
+//================CONTROL====================
+	
 	// verify if the matrix is complete
 	private void verifyEntry(int[][] matrix) throws MatrixMisconstructionException {
 		int rows = matrix.length;
@@ -145,73 +232,6 @@ public class Matrix {
 			}
 		}
 	}
-
-	
-	
-	
-//==============GETTERS AND SETTERS================
-	
-	public int[] getShape() {
-		return this.shape;
-	}
-	
-	// return a string which contains the shape
-	public String getStringShape() {
-		return "("+ this.shape[0] + ", " + this.shape[1] + ")";
-	}
-	
-	// return the number of rows
-	public int m() {
-		return this.shape[0];
-	}
-	
-	// return the number of columns
-	public int n() {
-		return this.shape[1];
-	}
-	
-	// return the at the row m and the column n
-	public BigDecimal getValueAt(int m, int n) {
-		return this.matrix[m][n];
-	}
-	
-	// modify the value at the row m and the column n
-	public void setValueAt(int m, int n, int value) {
-		this.matrix[m][n] = new BigDecimal(value);
-	}
-	
-	// modify the value at the row m and the column n
-	public void setValueAt(int m, int n, double value) {
-		this.matrix[m][n] = new BigDecimal(value);
-	}
-	
-	// modify the value at the row m and the column n
-	public void setValueAt(int m, int n, BigDecimal value) {
-		this.matrix[m][n] = value;
-	}
-	
-	// display of the matrix
-	public String toString() {
-		String info = "";
-		DecimalFormat df = new DecimalFormat("###.########");
-		
-		for (int i = 0 ; i < m() ; i++) {
-			info+="| ";
-			for (int j = 0 ; j < n() ; j++) {
-				BigDecimal value = getValueAt(i, j);
-				if (value.compareTo(BigDecimal.ZERO)>=0) {
-					info+=" ";
-				}
-				info+=df.format(value.doubleValue())+" ";
-			}
-			info+="|\n";
-		}
-		return info;
-	}
-	
-	
-	
-//=============COMPARISON=============
 	
 	// verify if the two matrixes have the same shape, if not, throw an exception
 	private void verifySameShape(Matrix matrix2) throws WrongShapeException {
@@ -220,6 +240,18 @@ public class Matrix {
 					this.getStringShape()+" != " + matrix2.getStringShape());
 		}
 	}
+	
+	// verify if the number of columns of the first matrix is the same as the number of rows of the second matrix
+	public void verifyMultiplicationPossibility(Matrix matrix2) throws WrongShapeException {
+		if (this.n() != matrix2.m()) {
+			throw new WrongShapeException("The shape of the two matrixes are not compatible for a multiplication : "+
+					this.getStringShape()+" incompatible with " + matrix2.getStringShape());
+		}
+	}
+	
+//=============COMPARISON=============
+	
+	
 	
 	// test if all the values of the matrix are same as the other
 	public boolean equals(Matrix matrix2) throws WrongShapeException {
@@ -263,7 +295,7 @@ public class Matrix {
 	public Matrix subtract(Matrix matrix2) throws WrongShapeException {
 		this.verifySameShape(matrix2);
 		
-		Matrix addition = new Matrix(m(), n());
+		Matrix subtraction = new Matrix(m(), n());
 		BigDecimal current;
 		
 		// for each rows
@@ -271,23 +303,98 @@ public class Matrix {
 			//for each columns
 			for (int j = 0 ; j < n() ; j++) {
 				current = this.getValueAt(i, j).subtract(matrix2.getValueAt(i, j));
-				addition.setValueAt(i, j, current);
+				subtraction.setValueAt(i, j, current);
 			}
 		}
 		
-		return addition;
+		return subtraction;
 	}
 	
 	
 	// a matrix multiply by a matrix
-	public Matrix multiply(Matrix matrix2) {
-		return null;
+	public Matrix multiply(Matrix matrix2) throws WrongShapeException {
+		this.verifyMultiplicationPossibility(matrix2);
+		
+		Matrix multiplication = new Matrix(this.m(), matrix2.n());
+		
+		//for each rows of the first matrix
+		for (int i = 0 ; i < this.m(); i++) {
+			// for each columns of the second matrix
+			for (int j = 0 ; j < matrix2.n() ; j++) {
+				BigDecimal value = this.sumMultiplication(this.getRow(i), matrix2.getColumn(j));
+				multiplication.setValueAt(i, j, value);
+			}
+		}
+		return multiplication;
+	}
+	
+	
+	// a matrix multiply by a scalar
+	public Matrix multiply(int scalar) {		
+		Matrix multiplication = new Matrix(this.m(), this.n());
+		
+		//for each rows
+		for (int i = 0 ; i < this.m(); i++) {
+			// for each columns
+			for (int j = 0 ; j < this.n() ; j++) {
+				multiplication.setValueAt(i, j, this.getValueAt(i, j).multiply(new BigDecimal(scalar)));
+			}
+		}
+		return multiplication;
+	}
+	
+	// a matrix multiply by a scalar
+	public Matrix multiply(double scalar) {		
+		Matrix multiplication = new Matrix(this.m(), this.n());
+		
+		//for each rows
+		for (int i = 0 ; i < this.m(); i++) {
+			// for each columns
+			for (int j = 0 ; j < this.n() ; j++) {
+				multiplication.setValueAt(i, j, this.getValueAt(i, j).multiply(new BigDecimal(scalar)));
+			}
+		}
+		return multiplication;
+	}
+	
+	// a matrix multiply by a scalar
+	public Matrix multiply(BigDecimal scalar) {		
+		Matrix multiplication = new Matrix(this.m(), this.n());
+		
+		//for each rows
+		for (int i = 0 ; i < this.m(); i++) {
+			// for each columns
+			for (int j = 0 ; j < this.n() ; j++) {
+				multiplication.setValueAt(i, j, this.getValueAt(i, j).multiply(scalar));
+			}
+		}
+		return multiplication;
+	}
+	
+	// sum of the multiplication term to term of each array
+	private BigDecimal sumMultiplication(BigDecimal[] row, BigDecimal[] column) {
+		BigDecimal result = BigDecimal.ZERO;
+		
+		for (int i = 0 ; i < row.length ; i++) {
+			result = result.add(row[i].multiply(column[i]));
+		}
+		return result;
 	}
 	
 	
 	// transpose of the matrix
 	public Matrix T() {
-		return null;
+		Matrix transpose = new Matrix(this.n(), this.m());
+		
+		// for each row
+		for (int i = 0 ; i < this.m() ; i++) {
+			//for each column
+			for (int j = 0 ; j < this.n() ; j++) {
+				transpose.setValueAt(j, i, this.getValueAt(i, j));
+			}
+		}
+		
+		return transpose;
 	}
 	
 	
