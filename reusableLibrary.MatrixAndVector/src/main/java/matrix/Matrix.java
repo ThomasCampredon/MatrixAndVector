@@ -37,6 +37,9 @@ public class Matrix {
 	
 	// return a blank matrix
 	public Matrix(int m, int n) {
+		if (m <= 0 || n <=0) {
+			throw new IllegalArgumentException("The sizes of the matrix must be superior to 0");
+		}
 		this.matrix = new BigDecimal[m][n];
 		
 		// for each rows
@@ -242,7 +245,7 @@ public class Matrix {
 	}
 	
 	// verify if the number of columns of the first matrix is the same as the number of rows of the second matrix
-	public void verifyMultiplicationPossibility(Matrix matrix2) throws WrongShapeException {
+	private void verifyMultiplicationPossibility(Matrix matrix2) throws WrongShapeException {
 		if (this.n() != matrix2.m()) {
 			throw new WrongShapeException("The shape of the two matrixes are not compatible for a multiplication : "+
 					this.getStringShape()+" incompatible with " + matrix2.getStringShape());
@@ -421,9 +424,13 @@ public class Matrix {
 		}
 	}
 	
-	
-	
-	
+	/*
+	// inverse of the matrix
+	public Matrix inverse() {
+		Matrix inverse = new Matrix(1, 1);
+		return null; 
+	}
+	*/
 	
 	
 	
