@@ -431,7 +431,7 @@ public class Matrix {
 		Random random = new Random();
 		for (int i = 0 ; i < this.m() ; i++) {
 			for (int j = 0 ; j < this.n() ; j++) {
-				this.setValueAt(i, j, random.nextInt(1)*2-1);
+				this.setValueAt(i, j, random.nextDouble()*2.0-1.0);
 			}
 		}
 	}
