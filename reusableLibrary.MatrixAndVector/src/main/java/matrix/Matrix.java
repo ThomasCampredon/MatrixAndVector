@@ -3,6 +3,7 @@ package matrix;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Random;
 
 import Exception.*;
 
@@ -421,6 +422,17 @@ public class Matrix {
 				powered = powered.multiply(this);
 			}
 			return powered;
+		}
+	}
+	
+	
+	// randomize the values of the matrix
+	public void randomizeValue() {
+		Random random = new Random();
+		for (int i = 0 ; i < this.m() ; i++) {
+			for (int j = 0 ; j < this.n() ; j++) {
+				this.setValueAt(i, j, random.nextInt(1)*2-1);
+			}
 		}
 	}
 	
