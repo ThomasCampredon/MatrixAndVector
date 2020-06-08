@@ -203,6 +203,14 @@ public class MatrixTest {
 		
 	}
 	
+	@Test
+	public void test_elementWizeMultiplication() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][] {{-4, 6, -35},
+												{-7, 40, -21},
+												{-40, 0, 121}});
+		
+		assertTrue(result.equals(matrix1.elementsWizeMultiplication(matrix3)));
+	}
 	
 }
 

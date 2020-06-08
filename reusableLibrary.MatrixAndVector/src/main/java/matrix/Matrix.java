@@ -379,6 +379,24 @@ public class Matrix {
 		return multiplication;
 	}
 	
+	
+	// multiplication of each terms with the one at the same index
+	public Matrix elementsWizeMultiplication(Matrix matrix2) throws WrongShapeException {
+		this.verifySameShape(matrix2);
+		
+		Matrix result = new Matrix(this.m(), this.n());
+		
+		//for each rows
+		for (int i = 0 ; i < this.m(); i++) {
+			// for each columns
+			for (int j = 0 ; j < this.n() ; j++) {
+				result.setValueAt(i, j, this.getValueAt(i, j).multiply(matrix2.getValueAt(i, j)));
+			}
+		}
+		return result;
+	}
+	
+	
 	// sum of the multiplication term to term of each array
 	private BigDecimal sumMultiplication(BigDecimal[] row, BigDecimal[] column) {
 		BigDecimal result = BigDecimal.ZERO;
