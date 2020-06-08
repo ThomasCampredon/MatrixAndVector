@@ -444,6 +444,9 @@ public class Matrix {
 	}
 	
 	
+	
+//============TRANSFORMATION==============
+	
 	// randomize the values of the matrix
 	public void randomizeValue() {
 		Random random = new Random();
@@ -453,6 +456,41 @@ public class Matrix {
 			}
 		}
 	}
+	
+	
+	// create a row matrix base on an array
+	public static Matrix fromArray(int[] array) {
+		Matrix result = new Matrix(1, array.length);
+		
+		for (int i = 0 ; i < array.length ; i++) {
+			result.setValueAt(0, i, new BigDecimal(array[i]));
+		}
+		
+		return result;
+	}
+	
+	// create a row matrix base on an array
+	public static Matrix fromArray(double[] array) {
+		Matrix result = new Matrix(1, array.length);
+		
+		for (int i = 0 ; i < array.length ; i++) {
+			result.setValueAt(0, i, new BigDecimal(array[i]));
+		}
+		
+		return result;
+	}
+	
+	// create a row matrix base on an array
+	public static Matrix fromArray(BigDecimal[] array) {
+		Matrix result = new Matrix(1, array.length);
+		
+		for (int i = 0 ; i < array.length ; i++) {
+			result.setValueAt(0, i, array[i]);
+		}
+		
+		return result;
+	}
+	
 	
 	/*
 	// inverse of the matrix

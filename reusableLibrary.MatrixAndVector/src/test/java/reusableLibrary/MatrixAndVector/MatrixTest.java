@@ -212,6 +212,14 @@ public class MatrixTest {
 		assertTrue(result.equals(matrix1.elementsWizeMultiplication(matrix3)));
 	}
 	
+	@Test
+	public void test_fromArray() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][] {{1,3,2}});
+		int[] tab = {1,3,2};
+		
+		assertTrue(result.equals(Matrix.fromArray(tab)));
+	}
+	
 }
 
 
