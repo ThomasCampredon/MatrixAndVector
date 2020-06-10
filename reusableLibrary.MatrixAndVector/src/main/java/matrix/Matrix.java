@@ -138,7 +138,7 @@ public class Matrix {
 	// return the m row
 	public BigDecimal[] getRow(int m) {
 		if ((m >= this.m()) || (m<0)) {
-			throw new IllegalArgumentException("The row number is not valid : the row number is not between 0 and " + this.m());
+			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
 		}
 		return this.matrix[m];
 	}
@@ -146,7 +146,7 @@ public class Matrix {
 	// return the n column
 	public BigDecimal[] getColumn(int n) {
 		if ((n >= this.n()) || (n<0)) {
-			throw new IllegalArgumentException("The column number is not valid : the column number is not between 0 and " + this.n());
+			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
 		}
 		BigDecimal[] col = new BigDecimal[this.m()];
 		
@@ -156,6 +156,8 @@ public class Matrix {
 		}
 		return col;
 	}
+	
+	
 	
 	// modify the value at the row m and the column n
 	public void setValueAt(int m, int n, int value) {
@@ -489,6 +491,12 @@ public class Matrix {
 		}
 		
 		return result;
+	}
+	
+	
+	// return a 2D array
+	public BigDecimal[][] toArray(){
+		return this.matrix;
 	}
 	
 	
