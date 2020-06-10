@@ -158,7 +158,40 @@ public class Matrix {
 	}
 	
 	
+	// modify the m row
+	public void setRow(int m, int[] newRow) throws WrongShapeException {
+		if ((m >= this.m()) || (m<0)) {
+			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
+		}
+		if (newRow.length != this.n()) {
+			throw new WrongShapeException("The new row doesn't have the same length as the previous one ("+newRow.length+" != "+this.n()+")");
+		}
+		this.matrix[m] = this.tranformToBigDecimal(newRow);
+	}
 	
+	// modify the m row
+	public void setRow(int m, double[] newRow) throws WrongShapeException {
+		if ((m >= this.m()) || (m<0)) {
+			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
+		}
+		if (newRow.length != this.n()) {
+			throw new WrongShapeException("The new row doesn't have the same length as the previous one ("+newRow.length+" != "+this.n()+")");
+		}
+		this.matrix[m] = this.tranformToBigDecimal(newRow);
+	}
+	
+	// modify the m row
+	public void setRow(int m, BigDecimal[] newRow) throws WrongShapeException {
+		if ((m >= this.m()) || (m<0)) {
+			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
+		}
+		if (newRow.length != this.n()) {
+			throw new WrongShapeException("The new row doesn't have the same length as the previous one ("+newRow.length+" != "+this.n()+")");
+		}
+		this.matrix[m] = newRow;
+	}
+	
+
 	// modify the value at the row m and the column n
 	public void setValueAt(int m, int n, int value) {
 		this.matrix[m][n] = new BigDecimal(value);
@@ -193,6 +226,26 @@ public class Matrix {
 		return info;
 	}
 	
+	
+	//==============HELPERS===================
+	
+	// change the value of the array into BigDecimal
+	private BigDecimal[] tranformToBigDecimal(int[] array) {
+		BigDecimal[] result = new BigDecimal[array.length];
+		for (int i = 0 ; i < array.length ; i++) {
+			result[i] = new BigDecimal(array[i]);
+		}
+		return result;
+	}
+	
+	// change the value of the array into BigDecimal
+	private BigDecimal[] tranformToBigDecimal(double[] array) {
+		BigDecimal[] result = new BigDecimal[array.length];
+		for (int i = 0 ; i < array.length ; i++) {
+			result[i] = new BigDecimal(array[i]);
+		}
+		return result;
+	}
 	
 	
 //================CONTROL====================
