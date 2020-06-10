@@ -130,6 +130,11 @@ public class Matrix {
 		return this.shape[1];
 	}
 	
+	// return a 2D array
+	public BigDecimal[][] toArray(){
+		return this.matrix;
+	}
+	
 	// return the at the row m and the column n
 	public BigDecimal getValueAt(int m, int n) {
 		return this.matrix[m][n];
@@ -137,17 +142,13 @@ public class Matrix {
 	
 	// return the m row
 	public BigDecimal[] getRow(int m) {
-		if ((m >= this.m()) || (m<0)) {
-			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
-		}
+		verifyRowIndex(m);
 		return this.matrix[m];
 	}
 	
 	// return the n column
 	public BigDecimal[] getColumn(int n) {
-		if ((n >= this.n()) || (n<0)) {
-			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
-		}
+		verifyColumnIndex(n);
 		BigDecimal[] col = new BigDecimal[this.m()];
 		
 		// for each rows
@@ -160,20 +161,17 @@ public class Matrix {
 	
 	// modify the m row
 	public void setRow(int m, int[] newRow) throws WrongShapeException {
-		if ((m >= this.m()) || (m<0)) {
-			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
-		}
+		verifyRowIndex(m);
 		if (newRow.length != this.n()) {
 			throw new WrongShapeException("The new row doesn't have the same length as the previous one ("+newRow.length+" != "+this.n()+")");
 		}
 		this.matrix[m] = this.tranformToBigDecimal(newRow);
 	}
 	
+	
 	// modify the m row
 	public void setRow(int m, double[] newRow) throws WrongShapeException {
-		if ((m >= this.m()) || (m<0)) {
-			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
-		}
+		verifyRowIndex(m);
 		if (newRow.length != this.n()) {
 			throw new WrongShapeException("The new row doesn't have the same length as the previous one ("+newRow.length+" != "+this.n()+")");
 		}
@@ -182,9 +180,7 @@ public class Matrix {
 	
 	// modify the m row
 	public void setRow(int m, BigDecimal[] newRow) throws WrongShapeException {
-		if ((m >= this.m()) || (m<0)) {
-			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
-		}
+		verifyRowIndex(m);
 		if (newRow.length != this.n()) {
 			throw new WrongShapeException("The new row doesn't have the same length as the previous one ("+newRow.length+" != "+this.n()+")");
 		}
@@ -194,9 +190,7 @@ public class Matrix {
 	
 	// modify the n column
 	public void setColumn(int n, int[] newColumn) throws WrongShapeException {
-		if ((n >= this.n()) || (n<0)) {
-			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
-		}
+		verifyColumnIndex(n);
 		if (newColumn.length != this.m()) {
 			throw new WrongShapeException("The new column doesn't have the same length as the previous one ("+newColumn.length+" != "+this.m()+")");
 		}
@@ -208,9 +202,7 @@ public class Matrix {
 	
 	// modify the n column
 	public void setColumn(int n, double[] newColumn) throws WrongShapeException {
-		if ((n >= this.n()) || (n<0)) {
-			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
-		}
+		verifyColumnIndex(n);
 		if (newColumn.length != this.m()) {
 			throw new WrongShapeException("The new column doesn't have the same length as the previous one ("+newColumn.length+" != "+this.m()+")");
 		}
@@ -222,9 +214,7 @@ public class Matrix {
 		
 	// modify the n column
 	public void setColumn(int n, BigDecimal[] newColumn) throws WrongShapeException {
-		if ((n >= this.n()) || (n<0)) {
-			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
-		}
+		verifyColumnIndex(n);
 		if (newColumn.length != this.m()) {
 			throw new WrongShapeException("The new column doesn't have the same length as the previous one ("+newColumn.length+" != "+this.m()+")");
 		}
@@ -351,15 +341,40 @@ public class Matrix {
 		}
 	}
 	
+	// verify if the m index is superior or equal to 0 and inferior to the number of rows, else throw an exception
+	private void verifyRowIndex(int m) {
+		if (!isValidRowIndex(m)) {
+			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
+		}
+	}
+	
+	// verify if the n index is superior or equal to 0 and inferior to the number of columns, else throw an exception
+	private void verifyColumnIndex(int n) {
+		if (!isValidColumnIndex(n)) {
+			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
+		}
+	}
+	
 	// return true if the matrix is a square matrix
 	public boolean isSqareMatrix() {
 		return this.m()==this.n();
 	}
 	
+	// return true if the m parameter is compatible with the matrix
+	private boolean isValidRowIndex(int m) {
+		return ((m < this.m()) && (m>=0));
+	}
+	
+	// return true if the n parameter is compatible with the matrix
+	private boolean isValidColumnIndex(int n) {
+		return (n < this.n()) && (n>=0);
+	}
+	
+	
+	
 //=============COMPARISON=============
 	
-	
-	
+
 	// test if all the values of the matrix are same as the other
 	public boolean equals(Matrix matrix2) throws WrongShapeException {
 		verifySameShape(matrix2);
@@ -600,11 +615,24 @@ public class Matrix {
 		return result;
 	}
 	
-	
-	// return a 2D array
-	public BigDecimal[][] toArray(){
-		return this.matrix;
+	// switch 2 rows
+	public void switchRows(int indexRow1, int indexRow2) throws WrongShapeException {
+		this.verifyRowIndex(indexRow1);
+		this.verifyRowIndex(indexRow2);
+		BigDecimal[] buff = this.getRow(indexRow1);
+		this.setRow(indexRow1, this.getRow(indexRow2));
+		this.setRow(indexRow2, buff);
 	}
+	
+	// switch 2 columns
+	public void switchColumns(int indexColumn1, int indexColumn2) throws WrongShapeException {
+		this.verifyColumnIndex(indexColumn1);
+		this.verifyColumnIndex(indexColumn2);
+		BigDecimal[] buff = this.getColumn(indexColumn1);
+		this.setColumn(indexColumn1, this.getColumn(indexColumn2));
+		this.setColumn(indexColumn2, buff);
+	}
+	
 	
 	
 	/*

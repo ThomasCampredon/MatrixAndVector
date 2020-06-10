@@ -65,6 +65,11 @@ public class MatrixTest {
 		assertArrayEquals(result, matrix2.getRow(0));
 	}
 	
+	@Test(expected = IllegalArgumentException.class)
+	public void test_getRow_should_trows_exception() throws WrongShapeException {
+		BigDecimal[] test = matrix1.getRow(3);
+	}
+	
 	@Test
 	public void test_getColumn() {
 		BigDecimal[] result = new BigDecimal[2];
@@ -73,6 +78,11 @@ public class MatrixTest {
 		}
 		
 		assertArrayEquals(result, matrix2.getColumn(0));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void test_getColumn_should_trows_exception() throws WrongShapeException {
+		BigDecimal[] test = matrix1.getColumn(-1);
 	}
 	 
 	@Test
@@ -221,7 +231,7 @@ public class MatrixTest {
 	}
 	
 	@Test
-	public void setRow() throws MatrixMisconstructionException, WrongShapeException {
+	public void test_setRow() throws MatrixMisconstructionException, WrongShapeException {
 		Matrix result = new Matrix(new int[][]{ {1,3,2},
 												{-1, 5, -7},
 												{-8, 7, 11}} );
@@ -231,7 +241,7 @@ public class MatrixTest {
 	}
 	
 	@Test
-	public void setColumn() throws MatrixMisconstructionException, WrongShapeException {
+	public void test_setColumn() throws MatrixMisconstructionException, WrongShapeException {
 		Matrix result = new Matrix(new int[][]{ {1, 1, 5},
 												{-1, 3, -7},
 												{-8, 2, 11}} );
@@ -239,6 +249,24 @@ public class MatrixTest {
 		int[] tab = {1,3,2};
 		matrix1.setColumn(0, tab);
 		
+	}
+	
+	@Test
+	public void test_switchRows() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][]{ {-1, 5, -7},
+												{1, 2, 5},
+												{-8, 7, 11}} );
+		matrix1.switchRows(0, 1);
+		assertTrue(result.equals(matrix1));
+	}
+	
+	@Test
+	public void test_switchColumns() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][]{ {2, 1, 5},
+												{5, -1, -7},
+												{7, -8, 11}} );
+		matrix1.switchColumns(0, 1);
+		assertTrue(result.equals(matrix1));
 	}
 	
 }
