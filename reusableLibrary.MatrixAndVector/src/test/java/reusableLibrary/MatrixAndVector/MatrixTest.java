@@ -220,6 +220,27 @@ public class MatrixTest {
 		assertTrue(result.equals(Matrix.fromArray(tab)));
 	}
 	
+	@Test
+	public void setRow() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][]{ {1,3,2},
+												{-1, 5, -7},
+												{-8, 7, 11}} );
+		int[] tab = {1,3,2};
+		matrix1.setRow(0, tab);
+		assertTrue(result.equals(matrix1));
+	}
+	
+	@Test
+	public void setColumn() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][]{ {1, 1, 5},
+												{-1, 3, -7},
+												{-8, 2, 11}} );
+		
+		int[] tab = {1,3,2};
+		matrix1.setColumn(0, tab);
+		
+	}
+	
 }
 
 

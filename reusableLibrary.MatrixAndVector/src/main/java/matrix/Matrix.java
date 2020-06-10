@@ -191,6 +191,49 @@ public class Matrix {
 		this.matrix[m] = newRow;
 	}
 	
+	
+	// modify the n column
+	public void setColumn(int n, int[] newColumn) throws WrongShapeException {
+		if ((n >= this.n()) || (n<0)) {
+			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
+		}
+		if (newColumn.length != this.m()) {
+			throw new WrongShapeException("The new column doesn't have the same length as the previous one ("+newColumn.length+" != "+this.m()+")");
+		}
+		
+		for (int i = 0 ; i < this.m(); i++) {
+			this.setValueAt(i, n, newColumn[i]);
+		}
+	}
+	
+	// modify the n column
+	public void setColumn(int n, double[] newColumn) throws WrongShapeException {
+		if ((n >= this.n()) || (n<0)) {
+			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
+		}
+		if (newColumn.length != this.m()) {
+			throw new WrongShapeException("The new column doesn't have the same length as the previous one ("+newColumn.length+" != "+this.m()+")");
+		}
+		
+		for (int i = 0 ; i < this.m(); i++) {
+			this.setValueAt(i, n, newColumn[i]);
+		}
+	}
+		
+	// modify the n column
+	public void setColumn(int n, BigDecimal[] newColumn) throws WrongShapeException {
+		if ((n >= this.n()) || (n<0)) {
+			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
+		}
+		if (newColumn.length != this.m()) {
+			throw new WrongShapeException("The new column doesn't have the same length as the previous one ("+newColumn.length+" != "+this.m()+")");
+		}
+		
+		for (int i = 0 ; i < this.m(); i++) {
+			this.setValueAt(i, n, newColumn[i]);
+		}
+	}
+		
 
 	// modify the value at the row m and the column n
 	public void setValueAt(int m, int n, int value) {
