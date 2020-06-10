@@ -555,6 +555,17 @@ public class Matrix {
 		}
 	}
 	
+	// randomize the values of the matrix
+	public void randomizeValue(double max) {
+		Random random = new Random();
+		for (int i = 0 ; i < this.m() ; i++) {
+			for (int j = 0 ; j < this.n() ; j++) {
+				double value = (random.nextDouble()*(2.0*max)-max);
+				this.setValueAt(i, j, value);
+			}
+		}
+	}
+	
 	
 	// create a row matrix base on an array
 	public static Matrix fromArray(int[] array) {
