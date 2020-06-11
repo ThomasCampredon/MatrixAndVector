@@ -15,6 +15,7 @@ public class Main {
 			{5, 0, 11}} );
 		
 		System.out.println(matrix1.pow(3).toString());
+		
 
 	} 
 

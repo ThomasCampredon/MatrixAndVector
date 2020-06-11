@@ -560,7 +560,7 @@ public class Matrix {
 	
 //============TRANSFORMATION==============
 	
-	// randomize the values of the matrix
+	// randomize the values of the matrix ([-1 ; 1])
 	public void randomizeValue() {
 		Random random = new Random();
 		for (int i = 0 ; i < this.m() ; i++) {
@@ -570,7 +570,7 @@ public class Matrix {
 		}
 	}
 	
-	// randomize the values of the matrix
+	// randomize the values of the matrix ([-max ; +max])
 	public void randomizeValue(double max) {
 		Random random = new Random();
 		for (int i = 0 ; i < this.m() ; i++) {
