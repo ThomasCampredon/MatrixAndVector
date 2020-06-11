@@ -2,6 +2,7 @@ package matrix;
 
 import Exception.MatrixMisconstructionException;
 import Exception.WrongShapeException;
+import vector.*;
 
 public class Main {
 
@@ -16,6 +17,12 @@ public class Main {
 		
 		System.out.println(matrix1.pow(3).toString());
 		
+		Matrix vect1 = new RowVector(5);
+		Matrix vect2 = new ColumnVector(5);
+		vect1.randomizeValue();
+		vect2.randomizeValue();
+		
+		System.out.println(vect2.T().toString());
 
 	} 
 

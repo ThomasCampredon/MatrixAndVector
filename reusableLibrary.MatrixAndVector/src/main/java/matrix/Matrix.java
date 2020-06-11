@@ -8,8 +8,8 @@ import java.util.Random;
 import Exception.*;
 
 public class Matrix {
-	private BigDecimal[][] matrix; // a two dimensional table
-	private int[] shape; // i=0 is the rows' number ; i=1 is the columns' number
+	protected BigDecimal[][] matrix; // a two dimensional table
+	protected int[] shape; // i=0 is the rows' number ; i=1 is the columns' number
 	
 	
 	
@@ -71,7 +71,7 @@ public class Matrix {
 //===============CONSTRUCTORS HELPERS=================
 	
 	// return a BigDecimal table
-	private BigDecimal[][] transformToBigDecimal(int[][] matrix2) {
+	protected BigDecimal[][] transformToBigDecimal(int[][] matrix2) {
 		BigDecimal[][] result = new BigDecimal[matrix2.length][matrix2[0].length];
 		
 		// for each rows
@@ -86,7 +86,7 @@ public class Matrix {
 	
 	
 	// return a BigDecimal table
-	private BigDecimal[][] transformToBigDecimal(double[][] matrix2) {
+	protected BigDecimal[][] transformToBigDecimal(double[][] matrix2) {
 		BigDecimal[][] result = new BigDecimal[matrix2.length][matrix2[0].length];
 		
 		// for each rows
@@ -101,7 +101,7 @@ public class Matrix {
 	
 	
 	// save the matrix size so that it does not need to be recalculated 
-	private void initializeShape() {
+	protected void initializeShape() {
 		this.shape = new int[2];
 		this.shape[0] = this.matrix.length;
 		this.shape[1] = this.matrix[0].length;
@@ -263,7 +263,7 @@ public class Matrix {
 	//==============HELPERS===================
 	
 	// change the value of the array into BigDecimal
-	private BigDecimal[] tranformToBigDecimal(int[] array) {
+	protected BigDecimal[] tranformToBigDecimal(int[] array) {
 		BigDecimal[] result = new BigDecimal[array.length];
 		for (int i = 0 ; i < array.length ; i++) {
 			result[i] = new BigDecimal(array[i]);
@@ -272,7 +272,7 @@ public class Matrix {
 	}
 	
 	// change the value of the array into BigDecimal
-	private BigDecimal[] tranformToBigDecimal(double[] array) {
+	protected BigDecimal[] tranformToBigDecimal(double[] array) {
 		BigDecimal[] result = new BigDecimal[array.length];
 		for (int i = 0 ; i < array.length ; i++) {
 			result[i] = new BigDecimal(array[i]);
@@ -284,7 +284,7 @@ public class Matrix {
 //================CONTROL====================
 	
 	// verify if the matrix is complete
-	private void verifyEntry(int[][] matrix) throws MatrixMisconstructionException {
+	protected void verifyEntry(int[][] matrix) throws MatrixMisconstructionException {
 		int rows = matrix.length;
 		int columns = matrix[0].length;
 		
@@ -298,7 +298,7 @@ public class Matrix {
 	}
 	
 	// verify if the matrix is complete
-	private void verifyEntry(double[][] matrix) throws MatrixMisconstructionException {
+	protected void verifyEntry(double[][] matrix) throws MatrixMisconstructionException {
 		int rows = matrix.length;
 		int columns = matrix[0].length;
 		
@@ -312,7 +312,7 @@ public class Matrix {
 	}
 	
 	// verify if the matrix is complete
-	private void verifyEntry(BigDecimal[][] matrix) throws MatrixMisconstructionException {
+	protected void verifyEntry(BigDecimal[][] matrix) throws MatrixMisconstructionException {
 		int rows = matrix.length;
 		int columns = matrix[0].length;
 		
@@ -326,7 +326,7 @@ public class Matrix {
 	}
 	
 	// verify if the two matrixes have the same shape, if not, throw an exception
-	private void verifySameShape(Matrix matrix2) throws WrongShapeException {
+	protected void verifySameShape(Matrix matrix2) throws WrongShapeException {
 		if (!Arrays.equals(this.getShape(),matrix2.getShape())) {
 			throw new WrongShapeException("The two matrixes don't have the same shape "+
 					this.getStringShape()+" != " + matrix2.getStringShape());
@@ -334,7 +334,7 @@ public class Matrix {
 	}
 	
 	// verify if the number of columns of the first matrix is the same as the number of rows of the second matrix
-	private void verifyMultiplicationPossibility(Matrix matrix2) throws WrongShapeException {
+	protected void verifyMultiplicationPossibility(Matrix matrix2) throws WrongShapeException {
 		if (this.n() != matrix2.m()) {
 			throw new WrongShapeException("The shape of the two matrixes are not compatible for a multiplication : "+
 					this.getStringShape()+" incompatible with " + matrix2.getStringShape());
@@ -342,14 +342,14 @@ public class Matrix {
 	}
 	
 	// verify if the m index is superior or equal to 0 and inferior to the number of rows, else throw an exception
-	private void verifyRowIndex(int m) {
+	protected void verifyRowIndex(int m) {
 		if (!isValidRowIndex(m)) {
 			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
 		}
 	}
 	
 	// verify if the n index is superior or equal to 0 and inferior to the number of columns, else throw an exception
-	private void verifyColumnIndex(int n) {
+	protected void verifyColumnIndex(int n) {
 		if (!isValidColumnIndex(n)) {
 			throw new IllegalArgumentException("The column number is not valid : the column number ("+n+") is not between 0 and " + this.n());
 		}
@@ -361,12 +361,12 @@ public class Matrix {
 	}
 	
 	// return true if the m parameter is compatible with the matrix
-	private boolean isValidRowIndex(int m) {
+	protected boolean isValidRowIndex(int m) {
 		return ((m < this.m()) && (m>=0));
 	}
 	
 	// return true if the n parameter is compatible with the matrix
-	private boolean isValidColumnIndex(int n) {
+	protected boolean isValidColumnIndex(int n) {
 		return (n < this.n()) && (n>=0);
 	}
 	
@@ -511,7 +511,7 @@ public class Matrix {
 	
 	
 	// sum of the multiplication term to term of each array
-	private BigDecimal sumMultiplication(BigDecimal[] row, BigDecimal[] column) {
+	protected BigDecimal sumMultiplication(BigDecimal[] row, BigDecimal[] column) {
 		BigDecimal result = BigDecimal.ZERO;
 		
 		for (int i = 0 ; i < row.length ; i++) {
