@@ -269,6 +269,16 @@ public class MatrixTest {
 		assertTrue(result.equals(matrix1));
 	}
 	
+	@Test
+	public void test_average() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new double[][]{ 	{-1.5, 2.5, -1.0},
+													{3.0, 6.5, -2},
+													{-1.5, 3.5, 11}} );
+		Matrix[] matrixes = {this.matrix1, this.matrix3};
+		
+		assertTrue(result.equals(Matrix.AVG(matrixes)));
+	}
+	
 }
 
 

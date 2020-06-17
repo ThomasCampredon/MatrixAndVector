@@ -633,7 +633,33 @@ public class Matrix {
 		this.setColumn(indexColumn2, buff);
 	}
 	
-	
+	// average values between all the matrix
+	public static Matrix AVG(Matrix[] matrixes) throws WrongShapeException {
+		int matrixesNumber = matrixes.length;
+		
+		// all the matrixes need the same shape
+		for (int i = 1 ; i < matrixesNumber ; i++) {
+			matrixes[i-1].verifySameShape(matrixes[i]);
+		}
+		Matrix average = new Matrix(matrixes[0].m(), matrixes[0].n());
+		
+		// for each rows
+		for (int i = 0 ; i < matrixes[0].m() ; i++) {
+			// for each columns
+			for (int j = 0 ; j < matrixes[0].n() ; j++) {
+				BigDecimal avg = BigDecimal.ZERO;
+					
+				// for all matrixes
+				for (int k = 0 ; k < matrixesNumber ; k++) {
+					avg = avg.add(matrixes[k].getValueAt(i, j));
+					System.out.println(matrixes[k].getValueAt(i, j));// TODO
+				}
+				avg = avg.divide(new BigDecimal(matrixesNumber));
+				average.setValueAt(i, j, avg);
+			}
+		} 		
+		return average;
+	}
 	
 	/*
 	// inverse of the matrix
