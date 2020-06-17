@@ -279,6 +279,17 @@ public class MatrixTest {
 		assertTrue(result.equals(Matrix.AVG(matrixes)));
 	}
 	
+	
+	@Test
+	public void test_sum() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][]{ 	{-3, 5, -2},
+													{6, 13, -4},
+													{-3, 7, 22}} );
+		Matrix[] matrixes = {this.matrix1, this.matrix3};
+		
+		assertTrue(result.equals(Matrix.SUM(matrixes)));
+	}
+	
 }
 
 

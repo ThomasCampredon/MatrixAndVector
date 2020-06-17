@@ -2,6 +2,7 @@ package matrix;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -557,6 +558,120 @@ public class Matrix {
 	}
 	
 	
+	// average values between all the matrix
+	public static Matrix AVG(Matrix[] matrixes) throws WrongShapeException {
+		int matrixesNumber = matrixes.length;
+		
+		// all the matrixes need the same shape
+		for (int i = 1 ; i < matrixesNumber ; i++) {
+			matrixes[i-1].verifySameShape(matrixes[i]);
+		}
+		Matrix average = new Matrix(matrixes[0].m(), matrixes[0].n());
+		
+		// for each rows
+		for (int i = 0 ; i < matrixes[0].m() ; i++) {
+			// for each columns
+			for (int j = 0 ; j < matrixes[0].n() ; j++) {
+				BigDecimal avg = BigDecimal.ZERO;
+					
+				// for all matrixes
+				for (int k = 0 ; k < matrixesNumber ; k++) {
+					avg = avg.add(matrixes[k].getValueAt(i, j));
+					System.out.println(matrixes[k].getValueAt(i, j));// TODO
+				}
+				avg = avg.divide(new BigDecimal(matrixesNumber));
+				average.setValueAt(i, j, avg);
+			}
+		} 		
+		return average;
+	}
+	
+	
+	// average values between all the matrix
+	public static Matrix AVG(ArrayList<Matrix> matrixes) throws WrongShapeException {
+		int matrixesNumber = matrixes.size();
+		
+		// all the matrixes need the same shape
+		for (int i = 1 ; i < matrixesNumber ; i++) {
+			matrixes.get(i-1).verifySameShape(matrixes.get(i));
+		}
+		Matrix average = new Matrix(matrixes.get(0).m(), matrixes.get(0).n());
+		
+		// for each rows
+		for (int i = 0 ; i < matrixes.get(0).m() ; i++) {
+			// for each columns
+			for (int j = 0 ; j < matrixes.get(0).n() ; j++) {
+				BigDecimal avg = BigDecimal.ZERO;
+					
+				// for all matrixes
+				for (int k = 0 ; k < matrixesNumber ; k++) {
+					avg = avg.add(matrixes.get(k).getValueAt(i, j));
+					System.out.println(matrixes.get(k).getValueAt(i, j));
+				}
+				avg = avg.divide(new BigDecimal(matrixesNumber));
+				average.setValueAt(i, j, avg);
+			}
+		} 		
+		return average;
+	}
+	
+	
+	// sum of the values of the matrixes
+	public static Matrix SUM(Matrix[] matrixes) throws WrongShapeException {
+		int matrixesNumber = matrixes.length;
+		
+		// all the matrixes need the same shape
+		for (int i = 1 ; i < matrixesNumber ; i++) {
+			matrixes[i-1].verifySameShape(matrixes[i]);
+		}
+		Matrix sum = new Matrix(matrixes[0].m(), matrixes[0].n());
+		
+		// for each rows
+		for (int i = 0 ; i < matrixes[0].m() ; i++) {
+			// for each columns
+			for (int j = 0 ; j < matrixes[0].n() ; j++) {
+				BigDecimal qsum = BigDecimal.ZERO;
+					
+				// for all matrixes
+				for (int k = 0 ; k < matrixesNumber ; k++) {
+					qsum = qsum.add(matrixes[k].getValueAt(i, j));
+					System.out.println(matrixes[k].getValueAt(i, j));// TODO
+				}
+				sum.setValueAt(i, j, qsum);
+			}
+		}
+		return sum;
+	}
+	
+	
+	// sum of the values of the matrixes
+	public static Matrix SUM(ArrayList<Matrix> matrixes) throws WrongShapeException {
+		int matrixesNumber = matrixes.size();
+		
+		// all the matrixes need the same shape
+		for (int i = 1 ; i < matrixesNumber ; i++) {
+			matrixes.get(i-1).verifySameShape(matrixes.get(i));
+		}
+		Matrix sum = new Matrix(matrixes.get(0).m(), matrixes.get(0).n());
+		
+		// for each rows
+		for (int i = 0 ; i < matrixes.get(0).m() ; i++) {
+			// for each columns
+			for (int j = 0 ; j < matrixes.get(0).n() ; j++) {
+				BigDecimal qsum = BigDecimal.ZERO;
+					
+				// for all matrixes
+				for (int k = 0 ; k < matrixesNumber ; k++) {
+					qsum = qsum.add(matrixes.get(k).getValueAt(i, j));
+					System.out.println(matrixes.get(k).getValueAt(i, j));// TODO
+				}
+				sum.setValueAt(i, j, qsum);
+			}
+		}
+		return sum;
+	}
+		
+		
 	
 //============TRANSFORMATION==============
 	
@@ -633,33 +748,9 @@ public class Matrix {
 		this.setColumn(indexColumn2, buff);
 	}
 	
-	// average values between all the matrix
-	public static Matrix AVG(Matrix[] matrixes) throws WrongShapeException {
-		int matrixesNumber = matrixes.length;
-		
-		// all the matrixes need the same shape
-		for (int i = 1 ; i < matrixesNumber ; i++) {
-			matrixes[i-1].verifySameShape(matrixes[i]);
-		}
-		Matrix average = new Matrix(matrixes[0].m(), matrixes[0].n());
-		
-		// for each rows
-		for (int i = 0 ; i < matrixes[0].m() ; i++) {
-			// for each columns
-			for (int j = 0 ; j < matrixes[0].n() ; j++) {
-				BigDecimal avg = BigDecimal.ZERO;
-					
-				// for all matrixes
-				for (int k = 0 ; k < matrixesNumber ; k++) {
-					avg = avg.add(matrixes[k].getValueAt(i, j));
-					System.out.println(matrixes[k].getValueAt(i, j));// TODO
-				}
-				avg = avg.divide(new BigDecimal(matrixesNumber));
-				average.setValueAt(i, j, avg);
-			}
-		} 		
-		return average;
-	}
+	
+	
+	
 	
 	/*
 	// inverse of the matrix

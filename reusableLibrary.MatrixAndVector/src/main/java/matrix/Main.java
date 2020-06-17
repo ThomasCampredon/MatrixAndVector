@@ -24,12 +24,12 @@ public class Main {
 		
 		System.out.println(vect2.T().toString());*/
 		
-		Matrix result = new Matrix(new double[][]{ 	{-1.5, 2.5, -1.0},
-			{3.0, 6.5, -2},
-			{-1.5, 3.5, 11}} );
+		Matrix result = new Matrix(new int[][]{ 	{3, 5, -2},
+			{6, 13, -4},
+			{-3, 7, 22}} );
 		
 		Matrix[] matrixes = {matrix1, matrix3};
-		System.out.println(Matrix.AVG(matrixes));
+		System.out.println(Matrix.SUM(matrixes));
 
 	} 
 
