@@ -105,14 +105,12 @@ public class RowVector extends Matrix{
 		try {
 			super.verifySameShape(vect2);
 		} catch (WrongShapeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		RowVector result = new RowVector(this.n());
 		try {
 			result.setRow(0, this.add(vect2).getRow(0));
 		} catch (WrongShapeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -124,14 +122,12 @@ public class RowVector extends Matrix{
 		try {
 			super.verifySameShape(vect2);
 		} catch (WrongShapeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		RowVector result = new RowVector(this.n());
 		try {
 			result.setRow(0, this.subtract(vect2).getRow(0));
 		} catch (WrongShapeException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -139,6 +135,20 @@ public class RowVector extends Matrix{
 	}
 	
 	
+	public RowVector elementsWizeMultiplication(RowVector vect2) throws WrongShapeException {
+		this.verifySameShape(vect2);
+		
+		RowVector result = new RowVector(this.n());
+		
+		//for each rows
+		for (int i = 0 ; i < this.m(); i++) {
+			// for each columns
+			for (int j = 0 ; j < this.n() ; j++) {
+				result.setValueAt(i, j, this.getValueAt(i, j).multiply(vect2.getValueAt(i, j)));
+			}
+		}
+		return result;
+	}
 	
 	
 }

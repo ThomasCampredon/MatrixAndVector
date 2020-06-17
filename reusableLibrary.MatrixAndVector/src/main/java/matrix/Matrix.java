@@ -43,7 +43,7 @@ public class Matrix {
 			throw new IllegalArgumentException("The sizes of the matrix must be superior to 0");
 		}
 		this.matrix = new BigDecimal[m][n];
-		
+		this.initializeShape();
 		// for each rows
 		for (int i = 0 ; i < m ; i++) {
 			// for each columns
@@ -51,7 +51,7 @@ public class Matrix {
 				this.setValueAt(i, j, 0); 
 			}
 		}
-		this.initializeShape();
+		
 	}
 	
 	// return the identity matrix
@@ -138,6 +138,8 @@ public class Matrix {
 	
 	// return the at the row m and the column n
 	public BigDecimal getValueAt(int m, int n) {
+		this.verifyColumnIndex(n);
+		this.verifyRowIndex(m);
 		return this.matrix[m][n];
 	}
 	
@@ -228,16 +230,22 @@ public class Matrix {
 
 	// modify the value at the row m and the column n
 	public void setValueAt(int m, int n, int value) {
+		this.verifyColumnIndex(n);
+		this.verifyRowIndex(m);
 		this.matrix[m][n] = new BigDecimal(value);
 	}
 	
 	// modify the value at the row m and the column n
 	public void setValueAt(int m, int n, double value) {
+		this.verifyColumnIndex(n);
+		this.verifyRowIndex(m);
 		this.matrix[m][n] = new BigDecimal(value);
 	}
 	
 	// modify the value at the row m and the column n
 	public void setValueAt(int m, int n, BigDecimal value) {
+		this.verifyColumnIndex(n);
+		this.verifyRowIndex(m);
 		this.matrix[m][n] = value;
 	}
 	
@@ -577,7 +585,6 @@ public class Matrix {
 				// for all matrixes
 				for (int k = 0 ; k < matrixesNumber ; k++) {
 					avg = avg.add(matrixes[k].getValueAt(i, j));
-					System.out.println(matrixes[k].getValueAt(i, j));// TODO
 				}
 				avg = avg.divide(new BigDecimal(matrixesNumber));
 				average.setValueAt(i, j, avg);
@@ -606,7 +613,6 @@ public class Matrix {
 				// for all matrixes
 				for (int k = 0 ; k < matrixesNumber ; k++) {
 					avg = avg.add(matrixes.get(k).getValueAt(i, j));
-					System.out.println(matrixes.get(k).getValueAt(i, j));
 				}
 				avg = avg.divide(new BigDecimal(matrixesNumber));
 				average.setValueAt(i, j, avg);
@@ -635,7 +641,6 @@ public class Matrix {
 				// for all matrixes
 				for (int k = 0 ; k < matrixesNumber ; k++) {
 					qsum = qsum.add(matrixes[k].getValueAt(i, j));
-					System.out.println(matrixes[k].getValueAt(i, j));// TODO
 				}
 				sum.setValueAt(i, j, qsum);
 			}
@@ -663,7 +668,6 @@ public class Matrix {
 				// for all matrixes
 				for (int k = 0 ; k < matrixesNumber ; k++) {
 					qsum = qsum.add(matrixes.get(k).getValueAt(i, j));
-					System.out.println(matrixes.get(k).getValueAt(i, j));// TODO
 				}
 				sum.setValueAt(i, j, qsum);
 			}
