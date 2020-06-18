@@ -30,6 +30,8 @@ public class Main {
 		
 		Matrix[] matrixes = {matrix1, matrix3};
 		System.out.println(Matrix.SUM(matrixes));
+		
+		System.out.println(matrix1.getDeterminant().toString());
 
 	} 
 

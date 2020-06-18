@@ -80,6 +80,14 @@ public class MatrixTest {
 		assertArrayEquals(result, matrix2.getColumn(0));
 	}
 	
+	@Test
+	public void test_getColumnValueBetweenIndex() {
+		BigDecimal[] values = new BigDecimal[] {new BigDecimal(-7), new BigDecimal(11)};
+
+		assertArrayEquals(values, matrix1.getColumnValueBetweenIndex(2, 1, 2));
+		
+	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void test_getColumn_should_trows_exception() throws WrongShapeException {
 		BigDecimal[] test = matrix1.getColumn(-1);
@@ -222,13 +230,13 @@ public class MatrixTest {
 		assertTrue(result.equals(matrix1.elementsWizeMultiplication(matrix3)));
 	}
 	
-	@Test
+	/*@Test
 	public void test_fromArray() throws MatrixMisconstructionException, WrongShapeException {
 		Matrix result = new Matrix(new int[][] {{1,3,2}});
 		int[] tab = {1,3,2};
 		
 		assertTrue(result.equals(Matrix.fromArray(tab)));
-	}
+	}*/
 	
 	@Test
 	public void test_setRow() throws MatrixMisconstructionException, WrongShapeException {
@@ -288,6 +296,16 @@ public class MatrixTest {
 		Matrix[] matrixes = {this.matrix1, this.matrix3};
 		
 		assertTrue(result.equals(Matrix.SUM(matrixes)));
+	}
+	
+	
+	@Test
+	public void test_getDeterminant() throws WrongShapeException, MatrixMisconstructionException {
+		BigDecimal result = new BigDecimal(20);
+		
+		Matrix test44 = new Matrix(new int[][] {{3, 0, 2, -1}, {1, 2, 0, -2}, {4, 0, 6, -3}, {5, 0, 2, 0}} );
+		
+		assertEquals(result, test44.getDeterminant());
 	}
 	
 }

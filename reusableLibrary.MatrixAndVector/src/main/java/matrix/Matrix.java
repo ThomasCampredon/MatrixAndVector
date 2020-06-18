@@ -143,6 +143,20 @@ public class Matrix {
 		return this.matrix[m][n];
 	}
 	
+	// return the value of a column that are between the two indexes (included)
+	public BigDecimal[] getColumnValueBetweenIndex(int indexColumn, int indexStart, int indexEnd) {
+		this.verifyColumnIndex(indexColumn);
+		this.verifyRowIndex(indexEnd);
+		this.verifyRowIndex(indexStart);
+		int valuesNumber = indexEnd-indexStart+1;
+		BigDecimal[] values = new BigDecimal[valuesNumber];
+		
+		for (int i = indexStart ; i <= indexEnd ; i++) {
+			values[i-indexStart] = this.getValueAt(i, indexColumn);
+		}
+		return values;
+	}
+	
 	// return the m row
 	public BigDecimal[] getRow(int m) {
 		verifyRowIndex(m);
@@ -269,6 +283,58 @@ public class Matrix {
 	}
 	
 	
+	// return the determinant of the matrix
+	public BigDecimal getDeterminant() throws WrongShapeException {
+		BigDecimal determinant = this.recursiveDet(this);
+
+		return determinant;
+	}
+	
+	
+	// recursive function for the determinant
+	private BigDecimal recursiveDet(Matrix prev) throws WrongShapeException {
+		if (prev.n()==2) {
+			return (prev.getValueAt(0, 0).multiply(prev.getValueAt(1, 1))).subtract(prev.getValueAt(0, 1).multiply(prev.getValueAt(1, 0)));
+		}else {
+			BigDecimal det = BigDecimal.ZERO;
+			// for all values in the first row
+			for (int j = 0 ; j < prev.n() ; j++) {
+				Matrix next = new Matrix(prev.m()-1, prev.n()-1);
+				BigDecimal pivot = prev.getValueAt(0, j);
+				boolean pivotPassed = false;
+
+				// for each columns
+				for (int k = 0 ; k < prev.n() ; k++) {
+					// if we are at the pivot column
+					if (k==j) {
+						pivotPassed = true;
+					}else {
+						if (pivotPassed) {
+							BigDecimal[] col = prev.getColumnValueBetweenIndex(k, 1, prev.m()-1);
+							next.setColumn(k-1, col);
+						}else {
+							BigDecimal[] col = prev.getColumnValueBetweenIndex(k, 1, prev.m()-1);
+							next.setColumn(k, col);
+						}
+						
+					}
+				}
+				
+				// créer les matrices intermédiaire --> setColumn avec la methode getValues par index des colonnes
+				if(j % 2 == 0) {
+					det = det.add(pivot.multiply(this.recursiveDet(next)));
+				}else {
+					pivot = pivot.negate();
+					det = det.add(pivot.multiply(this.recursiveDet(next)));
+				}
+				
+				
+			}
+			return det;
+		}	
+	}
+	
+	
 	//==============HELPERS===================
 	
 	// change the value of the array into BigDecimal
@@ -353,7 +419,7 @@ public class Matrix {
 	// verify if the m index is superior or equal to 0 and inferior to the number of rows, else throw an exception
 	protected void verifyRowIndex(int m) {
 		if (!isValidRowIndex(m)) {
-			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+")is not between 0 and " + this.m());
+			throw new IllegalArgumentException("The row number is not valid : the row number ("+m+") is not between 0 and " + this.m());
 		}
 	}
 	
@@ -700,7 +766,7 @@ public class Matrix {
 		}
 	}
 	
-	
+	/*
 	// create a row matrix base on an array
 	public static Matrix fromArray(int[] array) {
 		Matrix result = new Matrix(1, array.length);
@@ -732,7 +798,7 @@ public class Matrix {
 		}
 		
 		return result;
-	}
+	}*/
 	
 	// switch 2 rows
 	public void switchRows(int indexRow1, int indexRow2) throws WrongShapeException {
