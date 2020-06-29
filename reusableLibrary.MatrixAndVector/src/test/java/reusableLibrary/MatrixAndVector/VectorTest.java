@@ -1,6 +1,7 @@
 package reusableLibrary.MatrixAndVector;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,11 @@ public class VectorTest {
 	}
 	
 	
+	@Test
+	public void test_add() throws WrongShapeException {
+		RowVector result = new RowVector(new int[] {2, 4, 6});
 		
+		assertTrue(result.equals(vect1.add(vect1)));
+	}
 	
 }

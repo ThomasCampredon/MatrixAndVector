@@ -101,7 +101,7 @@ public class RowVector extends Matrix{
 	}
 	
 	
-	public RowVector add(ColumnVector vect2) {
+	public RowVector add(RowVector vect2) {
 		try {
 			super.verifySameShape(vect2);
 		} catch (WrongShapeException e) {
@@ -118,7 +118,7 @@ public class RowVector extends Matrix{
 	}
 	
 	
-	public RowVector subtract(ColumnVector vect2) {
+	public RowVector subtract(RowVector vect2) {
 		try {
 			super.verifySameShape(vect2);
 		} catch (WrongShapeException e) {
