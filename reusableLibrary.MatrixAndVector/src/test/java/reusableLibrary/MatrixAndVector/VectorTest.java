@@ -15,6 +15,7 @@ public class VectorTest {
 	private Matrix matrix1;
 	private Matrix vect1;
 	private Matrix vect2;
+	private RowVector vect3;
 	
 	
 	@Before
@@ -26,6 +27,8 @@ public class VectorTest {
 		this.vect1 = new RowVector(new int[]{1, 2, 3});
 		
 		this.vect2 = new ColumnVector(new int[]	{-4, 3, -7});
+		
+		this.vect3 = new RowVector(new int[]{1, 2, 3});
 	}
 	
 	
@@ -34,6 +37,14 @@ public class VectorTest {
 		RowVector result = new RowVector(new int[] {2, 4, 6});
 		
 		assertTrue(result.equals(vect1.add(vect1)));
+	}
+	
+	
+	@Test
+	public void test_pow() throws WrongShapeException {
+		RowVector result = new RowVector(new int[] {1, 4, 9});
+		
+		assertTrue(result.equals(vect3.powOnElements(2)));
 	}
 	
 }

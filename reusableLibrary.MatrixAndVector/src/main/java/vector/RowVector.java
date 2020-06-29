@@ -46,6 +46,10 @@ public class RowVector extends Matrix{
 		return info;
 	}
 	
+	public int length() {
+		return this.n();
+	}
+	
 	
 //==================OPERATIONS================
 	
@@ -148,6 +152,15 @@ public class RowVector extends Matrix{
 			}
 		}
 		return result;
+	}
+	
+	public RowVector powOnElements(int power) {
+		RowVector powered = this;
+		
+		for (int i = 0 ; i < this.length() ; i++) {
+			powered.setValueAt(0, i, this.getValueAt(0, i).pow(power));
+		}
+		return powered;
 	}
 	
 	

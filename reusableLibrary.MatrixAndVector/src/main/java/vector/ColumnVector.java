@@ -51,7 +51,9 @@ public class ColumnVector extends Matrix{
 		return info;
 	}
 	
-	
+	public int length() {
+		return this.m();
+	}
 	
 	
 //==================OPERATIONS================
@@ -155,6 +157,16 @@ public class ColumnVector extends Matrix{
 			}
 		}
 		return result;
+	}
+	
+	
+	public ColumnVector powOnElements(int power) {
+		ColumnVector powered = this;
+		
+		for (int i = 0 ; i < this.length() ; i++) {
+			powered.setValueAt(i, 0, this.getValueAt(0, i).pow(power));
+		}
+		return powered;
 	}
 	
 	
