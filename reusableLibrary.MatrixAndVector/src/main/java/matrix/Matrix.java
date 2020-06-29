@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 import Exception.*;
+import vector.ColumnVector;
+import vector.RowVector;
 
 public class Matrix {
 	protected BigDecimal[][] matrix; // a two dimensional table
@@ -163,6 +165,11 @@ public class Matrix {
 		return this.matrix[m];
 	}
 	
+	// return the m row as a RowVector
+	public RowVector getRowAsVector(int m) throws WrongShapeException {
+		return new RowVector(this.getRow(m));
+	}
+	
 	// return the n column
 	public BigDecimal[] getColumn(int n) {
 		verifyColumnIndex(n);
@@ -173,6 +180,11 @@ public class Matrix {
 			col[i] = this.getValueAt(i, n); // take the n value
 		}
 		return col;
+	}
+	
+	// return the n column as a ColumnVector
+	public ColumnVector getColumnAsVector(int n) throws WrongShapeException {
+		return new ColumnVector(this.getColumn(n));
 	}
 	
 	
