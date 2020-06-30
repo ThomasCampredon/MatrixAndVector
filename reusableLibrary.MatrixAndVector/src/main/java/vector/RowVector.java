@@ -154,6 +154,7 @@ public class RowVector extends Matrix{
 		return result;
 	}
 	
+	@Override
 	public RowVector powOnElements(int power) {
 		RowVector powered = this;
 		

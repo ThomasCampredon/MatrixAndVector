@@ -644,6 +644,19 @@ public class Matrix {
 	}
 	
 	
+	// powered all the elements of the matrix
+	public Matrix powOnElements(int power) {
+		Matrix powered = this;
+		
+		for (int i = 0 ; i < this.m() ; i++) {
+			for (int j = 0 ; j < this.n() ; j++) {
+				powered.setValueAt(i, j, this.getValueAt(i, j).pow(power));
+			}	
+		}
+		return powered;
+	}
+	
+	
 	// average values between all the matrix
 	public static Matrix AVG(Matrix[] matrixes) throws WrongShapeException {
 		int matrixesNumber = matrixes.length;

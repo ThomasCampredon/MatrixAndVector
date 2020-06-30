@@ -42,9 +42,9 @@ public class VectorTest {
 	
 	@Test
 	public void test_pow() throws WrongShapeException {
-		RowVector result = new RowVector(new int[] {1, 4, 9});
+		RowVector result = new RowVector(new int[] {1, 8, 27});
 		
-		assertTrue(result.equals(vect3.powOnElements(2)));
+		assertTrue(result.equals(vect3.powOnElements(3)));
 	}
 	
 }

@@ -159,7 +159,7 @@ public class ColumnVector extends Matrix{
 		return result;
 	}
 	
-	
+	@Override
 	public ColumnVector powOnElements(int power) {
 		ColumnVector powered = this;
 		

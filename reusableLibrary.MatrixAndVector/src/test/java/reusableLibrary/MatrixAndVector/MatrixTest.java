@@ -308,6 +308,14 @@ public class MatrixTest {
 		assertEquals(result, test44.getDeterminant());
 	}
 	
+	
+	@Test
+	public void test_powOnElements() throws MatrixMisconstructionException, WrongShapeException {
+		Matrix result = new Matrix(new int[][] {{1,4,25},{1,25,49},{64,49,121}});
+		
+		assertTrue(result.equals(matrix1.powOnElements(2)));
+	}
+	
 }
 
 
